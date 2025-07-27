@@ -195,6 +195,7 @@
       }
     }
 
+
     // สร้างและควบคุมรูปภาพ
     function createPhotos() {
       const container = document.getElementById("photo-container");
@@ -398,6 +399,60 @@
         positionManager.updateColumns();
       });
     };
+  </script>
+  <audio id="bg-music" autoplay loop preload="auto" src="12121.mp3"></audio>
+
+  <!-- ปุ่มควบคุมเพลง -->
+  <button id="music-toggle" aria-label="Toggle Music">
+    🔊
+  </button>
+
+  <style>
+    #music-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #ff66b3;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    #music-toggle:hover {
+      background-color: #ff3385;
+      transform: scale(1.1);
+    }
+  </style>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.warn("Autoplay ถูกปิดไว้ ให้ผู้ใช้กดปุ่มเปิดเอง");
+        });
+      }
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = '🔊';
+      } else {
+        music.pause();
+        toggleBtn.textContent = '🔇';
+      }
+    });
   </script>
 </body>
 </html>
